@@ -13,7 +13,8 @@ Apple 芯片的 Mac 解压即用。
 
 1. 到 [Releases](https://github.com/tianfeng66/minor-language-checker/releases/latest) 下载
    `minor-language-checker-*-macos.zip`（约 94 MB），解压。
-2. 双击 `启动小语种检查.command`，浏览器会自动打开页面。
+2. 双击文件夹里的 `启动小语种检查.command`，浏览器会自动打开页面。启动文件要和 `engine/`、`runtime/`
+   等放在一起，不要单独拖出来；想放桌面请右键“制作替身”。
 3. 把图片、文件夹、zip、PDF、Word、txt 拖进页面，识别完点“导出”。
 
 第一次打开如果提示“无法验证开发者”：打开 **系统设置 → 隐私与安全性**，拉到最下面点
