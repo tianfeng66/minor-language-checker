@@ -1,0 +1,10 @@
+pylib/
+pylib_*/
+models/
+runtime/
+_ref/
+_build/
+dist/
+engine/lang_ocr
+__pycache__/
+.DS_Store

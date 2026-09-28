@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小语种检查</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>小语种检查 <small>识别除中 / 英 / 日 / 韩以外的文字</small></h1>
+  <span id="engine" class="engine loading">引擎加载中…</span>
+</header>
+
+<section id="drop" class="drop">
+  <div class="drop-title">把图片、文件夹、zip、PDF、Word、txt 拖到这里</div>
+  <div class="drop-actions">
+    <label class="btn">选择文件<input id="pickFiles" type="file" multiple hidden></label>
+    <label class="btn">选择文件夹<input id="pickDir" type="file" webkitdirectory multiple hidden></label>
+    <span class="or">或输入本机路径</span>
+    <input id="pathInput" class="path" placeholder="例如 ~/Desktop/待检查图片（此方式支持“移动”原文件）">
+    <button id="scanPath" class="btn">扫描路径</button>
+  </div>
+  <div class="settings">
+    <label>放大级别
+      <select id="level">
+        <option value="0">快速：仅全图</option>
+        <option value="1">标准：全图 + 2×2 放大</option>
+        <option value="2" selected>精细：+ 3×3 放大（推荐）</option>
+        <option value="3">极致：+ 5×5 放大（最慢，找极小字）</option>
+      </select>
+    </label>
+    <label>灵敏度
+      <select id="sens">
+        <option value="loose">宽松（尽量不漏）</option>
+        <option value="normal" selected>标准</option>
+        <option value="strict">严格（尽量不误报）</option>
+      </select>
+    </label>
+    <label><input id="earlyStop" type="checkbox" checked> 确定命中后不再继续放大（更快）</label>
+    <label>并发 <input id="conc" type="number" min="1" max="6" value="3" class="num"></label>
+  </div>
+</section>
+
+<section class="bar">
+  <div class="progress"><div id="progBar"></div></div>
+  <div id="stats" class="stats"></div>
+  <div class="bar-actions">
+    <button id="rescan" class="btn ghost" title="对判为非小语种的文件用“极致”级别再扫一遍">未命中的用极致重扫</button>
+    <button id="stop" class="btn ghost">暂停</button>
+    <button id="clear" class="btn ghost">清空</button>
+  </div>
+</section>
+
+<section id="skipNotice" class="notice" hidden></section>
+
+<nav class="tabs" id="tabs">
+  <button data-f="all" class="on">全部</button>
+  <button data-f="minor">小语种</button>
+  <button data-f="sure">确定</button>
+  <button data-f="suspect">疑似</button>
+  <button data-f="none">非小语种</button>
+  <button data-f="error">无法读取</button>
+  <input id="search" placeholder="搜索文件名 / 语种 / 文字">
+</nav>
+
+<main id="grid" class="grid"></main>
+
+<section class="export">
+  <h2>导出到“小语种”文件夹</h2>
+  <div class="export-row">
+    <label>输出目录 <input id="outDir" class="path"></label>
+    <label>方式
+      <select id="mode"><option value="copy">复制（保留原文件）</option><option value="move">移动（仅“本机路径”添加的文件）</option></select>
+    </label>
+  </div>
+  <div class="export-row">
+    <label><input id="optSplit" type="checkbox" checked> 疑似放入“小语种/疑似待复核”</label>
+    <label><input id="optRename" type="checkbox" checked> 文件名加【语种】前缀</label>
+    <label><input id="optAnnot" type="checkbox" checked> 生成红框标注预览图</label>
+    <label><input id="optOthers" type="checkbox"> 同时导出非小语种</label>
+  </div>
+  <div class="export-row">
+    <button id="doExport" class="btn primary">导出</button>
+    <button id="dlCsv" class="btn ghost">仅下载检查报告 CSV</button>
+    <span id="exportMsg"></span>
+  </div>
+</section>
+
+<div id="modal" class="modal" hidden>
+  <div class="modal-box">
+    <button class="close" id="mClose">×</button>
+    <div class="m-left"><div class="stage" id="mStage"><img id="mImg" alt=""><svg id="mSvg"></svg></div></div>
+    <div class="m-right" id="mInfo"></div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
